@@ -1,0 +1,1 @@
+export { default as DonateContractAbi } from "./DonateContractAbi.json";
