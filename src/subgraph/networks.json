@@ -1,0 +1,8 @@
+{
+  "sepolia": {
+    "DonateContract": {
+      "address": "0x4663ba9079D5577718105635d614C8F965C8f734",
+      "startBlock": 8999946
+    }
+  }
+}

@@ -1,0 +1,10 @@
+type NewDonation @entity(immutable: true) {
+  id: Bytes!
+  donor: Bytes! # address
+  name: String! # string
+  message: String! # string
+  amount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
