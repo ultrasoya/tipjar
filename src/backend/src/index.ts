@@ -1,5 +1,5 @@
 import express from "express";
-import { healthRouter, donationsRouter } from "./routes";
+import { healthRouter, donationsListRouter, donationsAmountRouter } from "./routes";
 
 
 const app = express();
@@ -10,7 +10,8 @@ app.get('/', (_req, res) => {
 });
 
 app.use('/', healthRouter);
-app.use('/', donationsRouter);
+app.use('/', donationsListRouter);
+app.use('/', donationsAmountRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

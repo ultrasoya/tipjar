@@ -13,7 +13,7 @@ const getTotalDonations = async (contract: DonateContract): Promise<bigint> => {
     return totalDonations;
 };
 
-router.get("/donations", async (_req: Request, res: Response) => {
+router.get("/donationsAmount", async (_req: Request, res: Response) => {
     const provider = new JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${process.env["ALCHEMY_API_KEY"]}`);
     
     if (!process.env["DONATE_CONTRACT_ADDRESS"]) {
