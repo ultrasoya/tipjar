@@ -1,12 +1,9 @@
 import { Contract, ContractTransactionResponse } from "ethers";
 
-// Типизированный контракт, объединяющий ethers Contract с методами смарт-контракта
 export type DonateContract = Contract & {
-  // Методы смарт-контракта
   donate(name: string, message: string, overrides?: { value?: bigint }): Promise<ContractTransactionResponse>;
   withdraw(): Promise<ContractTransactionResponse>;
   
-  // Геттеры
   addressToDonate(donor: string): Promise<bigint>;
   totalDonations(): Promise<bigint>;
   i_owner(): Promise<string>;
