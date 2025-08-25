@@ -1,0 +1,20 @@
+.gift-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gift-container .gift-box {
+    height: 200px;
+    width: 300px;
+    background: #ec9c4a;
+}
+
+.gift-box::before {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 200px;
+    background: #e76f51;
+    left: 425px;
+}

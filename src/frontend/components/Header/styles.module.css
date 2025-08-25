@@ -1,0 +1,18 @@
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+    color: #714691;
+    color: linear-gradient(90deg,rgba(113, 70, 145, 1) 0%, rgba(75, 143, 163, 1) 75%, rgba(80, 135, 217, 1) 100%);
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
