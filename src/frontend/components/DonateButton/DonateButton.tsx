@@ -1,34 +1,54 @@
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
+import { Heart } from '../../assets';
+import styles from './styles.module.css';
 
-type DonateButtonProps = {
-  onClick?: () => void;
+interface DonateButtonProps {
+  onClick: () => void;
   disabled?: boolean;
-};
+}
 
-const baseStyle: React.CSSProperties = {
-  padding: "12px 24px",
-  borderRadius: 8,
-  color: "#fff",
-  fontWeight: 600,
-  boxShadow: "0 6px 14px rgba(0,0,0,0.18)",
-  border: "none",
-};
-
-const DonateButton = ({ onClick, disabled }: DonateButtonProps) => {
+function DonateButton({ onClick, disabled = false }: DonateButtonProps) {
   return (
     <motion.button
-      whileHover={!disabled ? { scale: 1.05 } : undefined}
-      whileTap={!disabled ? { scale: 0.98 } : undefined}
-      onClick={disabled ? undefined : onClick}
-      style={{
-        ...baseStyle,
-        background: disabled ? "#9ca3af" : "#059669",
-        cursor: disabled ? "not-allowed" : "pointer",
-      }}
+      onClick={onClick}
+      disabled={disabled}
+      className={styles.button}
+      whileHover={{ scale: disabled ? 1 : 1.05 }}
+      whileTap={{ scale: disabled ? 1 : 0.95 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
-      {disabled ? "Processing..." : "Donate"}
+      <motion.div
+        className={styles.heartContainer}
+        animate={{ 
+          scale: [1, 1.2, 1],
+        }}
+        transition={{ 
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      >
+          <Heart fill="currentColor" />
+      </motion.div>
+      
+      <motion.div
+        className={styles.pulseRing}
+        animate={{ 
+          scale: [1, 1.5],
+          opacity: [0.7, 0],
+        }}
+        transition={{ 
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeOut"
+        }}
+      />
+      
+      <span className={styles.label}>
+        Donate
+      </span>
     </motion.button>
   );
-};
+}
 
 export default DonateButton;

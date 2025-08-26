@@ -34,13 +34,13 @@ function App() {
   }, [busy]);
 
   return (
-    <>
+    <main>
       <Header />
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24, padding: '40px 0' }}>
+      <section className="container">
         <GiftBox isOpen={isOpen} coins={coins} />
         <DonateButton onClick={handleDonate} disabled={busy} />
-      </div>
-    </>
+      </section>
+    </main>
   );
 }
 
