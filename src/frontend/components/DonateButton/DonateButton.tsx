@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Heart } from '../../assets';
+import { Heart } from 'lucide-react';
 import styles from './styles.module.css';
 
 interface DonateButtonProps {

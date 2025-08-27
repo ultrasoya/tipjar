@@ -1,6 +1,7 @@
 import './App.css';
 import { useCallback, useState } from 'react';
 import { DonateButton, Header, GiftBox } from './components';
+import { DonationModal } from './modal/DonationModal/DonationModal';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,12 +26,12 @@ function App() {
     ]);
 
     // Убираем задержку - монетки исчезают сразу после падения
-    await new Promise((r) => setTimeout(r, 1100)); // Ждем только время падения монетки
+    // await new Promise((r) => setTimeout(r, 1100)); // Ждем только время падения монетки
 
-    setIsOpen(false);
-    await new Promise((r) => setTimeout(r, 700));
-    setCoins([]);
-    setBusy(false);
+    // setIsOpen(false);
+    // await new Promise((r) => setTimeout(r, 700));
+    // setCoins([]);
+    // setBusy(false);
   }, [busy]);
 
   return (
@@ -40,6 +41,11 @@ function App() {
         <GiftBox isOpen={isOpen} coins={coins} />
         <DonateButton onClick={handleDonate} disabled={busy} />
       </section>
+      <DonationModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        onDonate={handleDonate}
+      />
     </main>
   );
 }

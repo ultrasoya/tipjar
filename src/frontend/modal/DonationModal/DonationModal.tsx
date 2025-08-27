@@ -1,9 +1,10 @@
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { X, Coins } from 'lucide-react';
 import { Button } from './ui/button';
 import Input from './ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select.tsx';
 import { useState } from 'react';
+import styles from './DonationModal.module.css';
 
 interface DonationModalProps {
   isOpen: boolean;
@@ -35,7 +36,7 @@ export function DonationModal({ isOpen, onClose, onDonate }: DonationModalProps)
         <>
           {/* Backdrop */}
           <motion.div
-            className="fixed inset-0 bg-black/50 z-40"
+            className={styles.backdrop}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -44,13 +45,13 @@ export function DonationModal({ isOpen, onClose, onDonate }: DonationModalProps)
 
           {/* Modal */}
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            className={styles.modalContainer}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 relative"
+              className={styles.modalContent}
               initial={{ scale: 0.9, y: 50 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 50 }}
@@ -59,15 +60,15 @@ export function DonationModal({ isOpen, onClose, onDonate }: DonationModalProps)
               {/* Close button */}
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
+                className={styles.closeButton}
               >
-                <X className="w-5 h-5" />
+                <X className={styles.closeIcon} />
               </button>
 
               {/* Header */}
-              <div className="text-center mb-6">
+              <div className={styles.header}>
                 <motion.div
-                  className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4"
+                  className={styles.iconContainer}
                   animate={{ 
                     rotate: [0, 360],
                   }}
@@ -77,16 +78,16 @@ export function DonationModal({ isOpen, onClose, onDonate }: DonationModalProps)
                     ease: "linear"
                   }}
                 >
-                  <Coins className="w-8 h-8 text-white" />
+                  <Coins className={styles.icon} />
                 </motion.div>
-                <h2 className="text-2xl font-bold text-gray-900">Make a Donation</h2>
-                <p className="text-gray-600 mt-2">Support our cause with cryptocurrency</p>
+                <h2 className={styles.title}>Make a Donation</h2>
+                <p className={styles.subtitle}>Support our cause with cryptocurrency</p>
               </div>
 
               {/* Form */}
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+              <div className={styles.form}>
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>
                     Amount
                   </label>
                   <Input
@@ -94,12 +95,12 @@ export function DonationModal({ isOpen, onClose, onDonate }: DonationModalProps)
                     placeholder="0.00"
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
-                    className="text-lg"
+                    className={styles.input}
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>
                     Currency
                   </label>
                   <Select value={currency} onValueChange={setCurrency}>
@@ -118,12 +119,12 @@ export function DonationModal({ isOpen, onClose, onDonate }: DonationModalProps)
                 {/* Donation Info */}
                 {amount && (
                   <motion.div
-                    className="bg-purple-50 rounded-lg p-4 border border-purple-200"
+                    className={styles.donationInfo}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                   >
-                    <p className="text-sm text-purple-700">
-                      You're donating <span className="font-bold">{amount} {currency}</span>
+                    <p className={styles.donationText}>
+                      You're donating <span className={styles.donationAmount}>{amount} {currency}</span>
                     </p>
                   </motion.div>
                 )}
@@ -132,15 +133,15 @@ export function DonationModal({ isOpen, onClose, onDonate }: DonationModalProps)
                 <Button
                   onClick={handleDonate}
                   disabled={!amount || parseFloat(amount) <= 0 || isProcessing}
-                  className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-3"
+                  className={styles.donateButton}
                 >
                   {isProcessing ? (
                     <motion.div
-                      className="flex items-center gap-2"
+                      className={styles.processingContainer}
                       animate={{ opacity: [1, 0.5, 1] }}
                       transition={{ duration: 1, repeat: Infinity }}
                     >
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <div className={styles.spinner} />
                       Processing...
                     </motion.div>
                   ) : (

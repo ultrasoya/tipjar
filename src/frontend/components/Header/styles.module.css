@@ -8,9 +8,10 @@
 }
 
 .title {
+    font-family: "Segoe UI", "Segoe UI Emoji", "Segoe UI Symbol", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
     font-weight: bold;
     font-size: 31.5px; /* или 36px, если нужны пиксели */
-    line-height: 35px; /* или 40px */
+    line-height: 41px; /* или 40px */
     background-image: linear-gradient(to right, #9333ea, #2563eb);
     background-clip: text;
     -webkit-background-clip: text; /* для совместимости с WebKit-браузерами */
@@ -19,6 +20,7 @@
 }
 
 .subtitle {
+    font-family: "Segoe UI", "Segoe UI Emoji", "Segoe UI Symbol", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
     font-size: 14px;
     line-height: 21px;
     color: var(--color-gray-600);
