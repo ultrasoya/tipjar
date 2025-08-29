@@ -17,6 +17,10 @@ export function DonationModal({ isOpen, onClose, onDonate }: DonationModalProps)
   const [currency, setCurrency] = useState('ETH');
   const [isProcessing, setIsProcessing] = useState(false);
 
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAmount(e.target.value);
+  };
+
   const handleDonate = async () => {
     if (!amount || parseFloat(amount) <= 0) return;
     
@@ -94,7 +98,7 @@ export function DonationModal({ isOpen, onClose, onDonate }: DonationModalProps)
                     type="number"
                     placeholder="0.00"
                     value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
+                    onChange={handleAmountChange}
                     className={styles.input}
                   />
                 </div>
@@ -107,7 +111,7 @@ export function DonationModal({ isOpen, onClose, onDonate }: DonationModalProps)
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className={styles.selectContent}>
                       <SelectItem value="ETH">ETH - Ethereum</SelectItem>
                       <SelectItem value="BTC">BTC - Bitcoin</SelectItem>
                       <SelectItem value="USDC">USDC - USD Coin</SelectItem>

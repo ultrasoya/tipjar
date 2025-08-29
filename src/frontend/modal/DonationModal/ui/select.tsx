@@ -101,12 +101,12 @@ function SelectItem({
       className={`${styles.selectItem} ${className || ""}`.trim()}
       {...props}
     >
+      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
       <span className={styles.selectItemIndicator}>
         <SelectPrimitive.ItemIndicator>
           <CheckIcon className={styles.selectIcon} />
         </SelectPrimitive.ItemIndicator>
       </span>
-      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
     </SelectPrimitive.Item>
   );
 }

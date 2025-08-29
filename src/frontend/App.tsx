@@ -25,13 +25,12 @@ function App() {
       Date.now() + 4,
     ]);
 
-    // Убираем задержку - монетки исчезают сразу после падения
-    // await new Promise((r) => setTimeout(r, 1100)); // Ждем только время падения монетки
+    await new Promise((r) => setTimeout(r, 1100));
 
-    // setIsOpen(false);
-    // await new Promise((r) => setTimeout(r, 700));
-    // setCoins([]);
-    // setBusy(false);
+    setIsOpen(false);
+    await new Promise((r) => setTimeout(r, 700));
+    setCoins([]);
+    setBusy(false);
   }, [busy]);
 
   return (
