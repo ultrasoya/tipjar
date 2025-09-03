@@ -1,7 +1,8 @@
 import './App.css';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { DonateButton, Header, GiftBox } from './components';
 import { DonationModal } from './modal/DonationModal/DonationModal';
+import { eventsEmitter, fetchDonationsAmount, fetchDonationsList } from './utils';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,6 +33,25 @@ function App() {
     setCoins([]);
     setBusy(false);
   }, [busy]);
+
+  useEffect(() => {
+    fetchDonationsAmount().then((data) => {
+      console.log('donations amount', data);
+    });
+    fetchDonationsList().then((data) => {
+      console.log('donations list', data);
+    });
+    
+    // Подписываемся на события о новых донатах
+    const cleanupEvents = eventsEmitter();
+    
+    // Cleanup функция для закрытия EventSource при размонтировании
+    return () => {
+      if (cleanupEvents) {
+        cleanupEvents();
+      }
+    };
+  }, []);
 
   return (
     <main>

@@ -10,7 +10,10 @@ export const donationListener = async () => {
             const history = await fetchSubgraphData();
             console.log("🔥 NewDonation event received:", { donor, name, message, amount: formatEther(amount) });
 
-            broadcastEvent({ donor, name, message, amount: formatEther(amount), history });
+            const eventData = { donor, name, message, amount: formatEther(amount), history };
+            console.log("📡 Broadcasting donation event to clients...");
+            broadcastEvent(eventData);
+            console.log("✅ Donation event broadcasted successfully");
         } catch (err) {
             console.error("Error fetching subgraph data:", err);
         }

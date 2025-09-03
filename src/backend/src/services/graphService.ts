@@ -1,6 +1,17 @@
 import { gql, request as graphqlRequest } from "graphql-request";
 
 export const fetchSubgraphData = async () => {
+    const subgraphUrl = process.env["SUBGRAPH_URL"];
+    const apiKey = process.env["SUBGRAPH_API_KEY"];
+    
+    if (!subgraphUrl) {
+        throw new Error("SUBGRAPH_URL environment variable is not defined");
+    }
+    
+    if (!apiKey) {
+        throw new Error("SUBGRAPH_API_KEY environment variable is not defined");
+    }
+
     const query = gql`{
         newDonations(first: 10) {
             id
@@ -9,9 +20,10 @@ export const fetchSubgraphData = async () => {
             message
         }
     }`;
-    const headers = { Authorization: `Bearer ${process.env["SUBGRAPH_API_KEY"]}` };
+    
+    const headers = { Authorization: `Bearer ${apiKey}` };
 
-    const data = await graphqlRequest(process.env["SUBGRAPH_URL"] as string, query, headers);
+    const data = await graphqlRequest(subgraphUrl, query, headers);
 
     return data;
 };
