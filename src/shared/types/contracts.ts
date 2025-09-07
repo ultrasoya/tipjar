@@ -4,7 +4,8 @@ export type Donation = {
   name: string;
   message: string;
   amount: string;
-  timestamp: string;
+  timestamp?: string;
+  id?: string;
 };
 
 export type NewDonationEvent = {
@@ -14,6 +15,12 @@ export type NewDonationEvent = {
   amount: string;
   history?: Donation[];
 };
+
+// Типы для ошибок контракта
+export type ContractError = 
+  | "InsuffientBalance"
+  | "NotOwner" 
+  | "WithdrawCallFailed";
 
 // Типы для событий
 export type SSEEvent = {

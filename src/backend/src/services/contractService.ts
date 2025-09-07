@@ -1,5 +1,6 @@
 import { JsonRpcProvider, Contract } from "ethers";
 import DonateContractAbi from "@shared/contracts/DonateContractAbi.json";
+import type { DonateContract } from "../types";
 
 const alchemyApiKey = process.env["ALCHEMY_API_KEY"];
 const contractAddress = process.env["DONATE_CONTRACT_ADDRESS"];
@@ -17,4 +18,4 @@ export const contract = new Contract(
   contractAddress,
   DonateContractAbi,
   provider
-);
+) as unknown as DonateContract;

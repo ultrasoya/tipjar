@@ -5,45 +5,50 @@ import Input from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select.tsx';
 import { useState } from 'react';
 import styles from './DonationModal.module.css';
+import { donate } from '../../utils';
 
 interface DonationModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onDonate: (amount: string, currency: string) => void;
 }
 
-export function DonationModal({ isOpen, onClose, onDonate }: DonationModalProps) {
+export function DonationModal({ isOpen, onClose }: DonationModalProps) {
   const [amount, setAmount] = useState('');
   const [currency, setCurrency] = useState('ETH');
+  const [name, setName] = useState('');
+  const [message, setMessage] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(e.target.value);
   };
 
+  const handleMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value);
+  };
+
   const handleDonate = async () => {
     if (!amount || parseFloat(amount) <= 0) return;
-    
+
     setIsProcessing(true);
-    
-    // Simulate donation processing
-    setTimeout(() => {
-      onDonate(amount, currency);
-      setIsProcessing(false);
-      setAmount('');
-    }, 2000);
+
+    await donate(amount, name, message);
+    setIsProcessing(false);
+    onClose();
   };
+
 
   return (
     <AnimatePresence>
       {isOpen && (
         <>
           {/* Backdrop */}
-          <motion.div
+          <div
             className={styles.backdrop}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
             onClick={onClose}
           />
 
@@ -53,6 +58,7 @@ export function DonationModal({ isOpen, onClose, onDonate }: DonationModalProps)
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={onClose}
           >
             <motion.div
               className={styles.modalContent}
@@ -60,6 +66,7 @@ export function DonationModal({ isOpen, onClose, onDonate }: DonationModalProps)
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 50 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              onClick={(e) => e.stopPropagation()}
             >
               {/* Close button */}
               <button
@@ -90,6 +97,30 @@ export function DonationModal({ isOpen, onClose, onDonate }: DonationModalProps)
 
               {/* Form */}
               <div className={styles.form}>
+                  <div className={styles.formGroup}>
+                  <label className={styles.label}>
+                    Name
+                  </label>
+                  <Input
+                    type="text"
+                    placeholder="Name"
+                    value={name}
+                    onChange={handleNameChange}
+                    className={styles.input}
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>
+                    Message
+                  </label>
+                  <Input
+                    type="text"
+                    placeholder="Message"
+                    value={message}
+                    onChange={handleMessageChange}
+                    className={styles.input}
+                  />
+                </div>
                 <div className={styles.formGroup}>
                   <label className={styles.label}>
                     Amount
@@ -102,16 +133,15 @@ export function DonationModal({ isOpen, onClose, onDonate }: DonationModalProps)
                     className={styles.input}
                   />
                 </div>
-
                 <div className={styles.formGroup}>
                   <label className={styles.label}>
                     Currency
                   </label>
-                  <Select value={currency} onValueChange={setCurrency}>
+                  <Select value={currency} onValueChange={setCurrency} disabled>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className={styles.selectContent}>
+                    <SelectContent defaultValue="ETH" className={styles.selectContent}>
                       <SelectItem value="ETH">ETH - Ethereum</SelectItem>
                       <SelectItem value="BTC">BTC - Bitcoin</SelectItem>
                       <SelectItem value="USDC">USDC - USD Coin</SelectItem>

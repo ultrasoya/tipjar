@@ -2,44 +2,45 @@ import './App.css';
 import { useCallback, useEffect, useState } from 'react';
 import { DonateButton, Header, GiftBox } from './components';
 import { DonationModal } from './modal/DonationModal/DonationModal';
+import { DonationListModal } from './modal/DonationListModal/DonationListModal';
 import { eventsEmitter, fetchDonationsAmount, fetchDonationsList } from './utils';
+import type { Donation } from '@shared/types/contracts';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isListModalOpen, setIsListModalOpen] = useState(false);
+  const [donations, setDonations] = useState<Donation[]>([]);
   const [coins, setCoins] = useState<number[]>([]);
   const [busy, setBusy] = useState(false);
+  const [totalDonations, setTotalDonations] = useState('');
 
-  const handleDonate = useCallback(async () => {
+  const handleOpenDonationModal = useCallback(async () => {
     if (busy) return;
     setBusy(true);
 
     setIsOpen(true);
-    await new Promise((r) => setTimeout(r, 600));
+  }, [busy]);
 
-    await new Promise((r) => setTimeout(r, 800));
-
-    setCoins([
-      Date.now(),
-      Date.now() + 1,
-      Date.now() + 2,
-      Date.now() + 3,
-      Date.now() + 4,
-    ]);
-
-    await new Promise((r) => setTimeout(r, 1100));
-
+  const handleCloseDonationModal = useCallback(() => {
     setIsOpen(false);
-    await new Promise((r) => setTimeout(r, 700));
     setCoins([]);
     setBusy(false);
-  }, [busy]);
+  }, []);
+
+  const handleCloseListModal = useCallback(() => {
+    setIsListModalOpen(false);
+  }, []);
+
+  const handleOpenListModal = useCallback(() => {
+    setIsListModalOpen(true);
+  }, []);
 
   useEffect(() => {
     fetchDonationsAmount().then((data) => {
-      console.log('donations amount', data);
+      setTotalDonations(data.totalDonations);
     });
     fetchDonationsList().then((data) => {
-      console.log('donations list', data);
+      setDonations(data.newDonations);
     });
     
     // Подписываемся на события о новых донатах
@@ -55,15 +56,20 @@ function App() {
 
   return (
     <main>
-      <Header />
+      <Header donations={donations} onOpenListModal={handleOpenListModal} />
       <section className="container">
         <GiftBox isOpen={isOpen} coins={coins} />
-        <DonateButton onClick={handleDonate} disabled={busy} />
+        <DonateButton onClick={handleOpenDonationModal} disabled={busy} />
       </section>
       <DonationModal
         isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        onDonate={handleDonate}
+        onClose={handleCloseDonationModal}
+      />
+      <DonationListModal
+        isOpen={isListModalOpen}
+        onClose={handleCloseListModal}
+        donations={donations}
+        totalDonations={totalDonations}
       />
     </main>
   );

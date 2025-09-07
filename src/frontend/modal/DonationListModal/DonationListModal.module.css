@@ -1,0 +1,270 @@
+/* DonationListModal Styles */
+
+/* Modal Overlay */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* Modal Container */
+.modalContainer {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 42rem;
+  width: 100%;
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.headerIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: linear-gradient(to right, #8b5cf6, #3b82f6);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerIcon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: white;
+}
+
+.headerText h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.headerText p {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.closeButton {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  background-color: #f3f4f6;
+}
+
+.closeButton svg {
+  width: 1rem;
+  height: 1rem;
+  color: #6b7280;
+}
+
+/* Total Summary */
+.totalSummary {
+  padding: 1.5rem;
+  background: linear-gradient(to right, #faf5ff, #eff6ff);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.totalHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.totalHeader svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #9333ea;
+}
+
+.totalHeader span {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.totalAmounts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.totalAmount {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.noDonationsText {
+  font-size: 1.25rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Donations List */
+.donationsList {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 24rem;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.emptyIcon {
+  width: 4rem;
+  height: 4rem;
+  background-color: #f3f4f6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.emptyIcon svg {
+  width: 2rem;
+  height: 2rem;
+  color: #9ca3af;
+}
+
+.emptyTitle {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #111827;
+  margin: 0 0 0.5rem 0;
+}
+
+.emptyDescription {
+  color: #6b7280;
+  margin: 0;
+}
+
+.donationsContainer {
+  border-top: 1px solid #f3f4f6;
+}
+
+.donationItem {
+  padding: 1.5rem;
+  transition: background-color 0.2s;
+}
+
+.donationItem:hover {
+  background-color: #f9fafb;
+}
+
+.donationContent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.donationLeft {
+  flex: 1;
+}
+
+.donationHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.donorAvatar {
+  width: 2rem;
+  height: 2rem;
+  background: linear-gradient(to right, #a855f7, #60a5fa);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.donorAvatar svg {
+  color: white;
+}
+.donorAvatar span {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+}
+
+.donorInfo h4 {
+  font-weight: 500;
+  color: #111827;
+  margin: 0;
+}
+
+.donorInfo p {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.donationMessage {
+  color: #374151;
+  margin-bottom: 0.75rem;
+  padding-left: 2.75rem;
+}
+
+.donationTimestamp {
+  font-size: 0.75rem;
+  color: #6b7280;
+  padding-left: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.donationAmount {
+  text-align: right;
+  margin-left: 1rem;
+}
+
+.donationAmountValue {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #059669;
+}

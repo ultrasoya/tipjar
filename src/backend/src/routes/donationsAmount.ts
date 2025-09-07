@@ -4,14 +4,9 @@ import { contract } from "../services";
 
 const router = Router();
 
-const getTotalDonations = async () => {
-    const totalDonations = await (contract as any).getTotalAmount();
-    return totalDonations;
-};
-
 router.get("/donationsamount", async (_req: Request, res: Response) => {
     try {
-        const totalDonations = await getTotalDonations();
+        const totalDonations = await contract.totalDonations();
         const totalDonationsInEther = formatEther(totalDonations);
         return res.json({ message: "Contract connected successfully", totalDonations: totalDonationsInEther });
     } catch (err) {
