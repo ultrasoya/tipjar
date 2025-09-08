@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { X, Gift, Users, Gem } from "lucide-react";
+import { X, Gift, Users, Gem, Loader2 } from "lucide-react";
+import { useEffect, useRef, useCallback } from "react";
 import styles from "./DonationListModal.module.css";
 import type { Donation } from "@shared/types/contracts";
 
@@ -8,6 +9,9 @@ interface DonationListModalProps {
   onClose: () => void;
   donations: Donation[];
   totalDonations: string;
+  onLoadMore: () => void;
+  hasMore: boolean;
+  isLoadingMore: boolean;
 }
 
 export function DonationListModal({
@@ -15,7 +19,34 @@ export function DonationListModal({
   onClose,
   donations,
   totalDonations,
+  onLoadMore,
+  hasMore,
+  isLoadingMore,
 }: DonationListModalProps) {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = useCallback(() => {
+    if (!scrollContainerRef.current || !hasMore || isLoadingMore) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = scrollContainerRef.current;
+    const isNearBottom = scrollTop + clientHeight >= scrollHeight - 100;
+
+    if (isNearBottom) {
+      onLoadMore();
+    }
+  }, [hasMore, isLoadingMore, onLoadMore]);
+
+  useEffect(() => {
+    // Не настраиваем скролл, если модалка не открыта
+    if (!isOpen) return;
+    
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', handleScroll);
+      return () => scrollContainer.removeEventListener('scroll', handleScroll);
+    }
+  }, [handleScroll, isOpen]);
+
   if (!isOpen) return null;
 
   const formatCurrency = (amount: string) => {
@@ -48,10 +79,6 @@ export function DonationListModal({
               <h2>
                 All Donations
               </h2>
-              <p>
-                {donations.length} donation
-                {donations.length !== 1 ? "s" : ""}
-              </p>
             </div>
           </div>
           <button
@@ -76,8 +103,8 @@ export function DonationListModal({
         </div>
 
         {/* Donations List */}
-        <div className={styles.donationsList}>
-          {donations.length === 0 ? (
+        <div className={styles.donationsList} ref={scrollContainerRef}>
+          {donations?.length === 0 ? (
             <div className={styles.emptyState}>
               <div className={styles.emptyIcon}>
                 <Gift />
@@ -91,7 +118,7 @@ export function DonationListModal({
             </div>
           ) : (
             <div className={styles.donationsContainer}>
-              {donations.map((donation) => (
+              {donations?.map((donation) => (
                 <motion.div
                   key={donation.id}
                   className={styles.donationItem}
@@ -130,6 +157,21 @@ export function DonationListModal({
                   </div>
                 </motion.div>
               ))}
+              
+              {/* Loading indicator */}
+              {isLoadingMore && (
+                <div className={styles.loadingIndicator}>
+                  <Loader2 className={styles.loadingSpinner} />
+                  <span>Loading more donations...</span>
+                </div>
+              )}
+              
+              {/* End of list indicator */}
+              {!hasMore && donations.length > 0 && (
+                <div className={styles.endOfList}>
+                  <span>You've reached the end of the list</span>
+                </div>
+              )}
             </div>
           )}
         </div>

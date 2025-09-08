@@ -24,9 +24,9 @@ function DonationListButton({ onClick, donations }: DonationListButtonProps) {
         <span className={styles.text}>
           View Donations
         </span>
-        {donations.length > 0 && (
+        {donations?.length > 0 && (
           <div className={styles.badge}>
-            {donations.length}
+            {1000}
           </div>
         )}
       </motion.button>

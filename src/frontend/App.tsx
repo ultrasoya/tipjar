@@ -4,6 +4,7 @@ import { DonateButton, Header, GiftBox } from './components';
 import { DonationModal } from './modal/DonationModal/DonationModal';
 import { DonationListModal } from './modal/DonationListModal/DonationListModal';
 import { eventsEmitter, fetchDonationsAmount, fetchDonationsList } from './utils';
+import { DEFAULT_DONATIONS_PAGE_SIZE } from './constants';
 import type { Donation } from '@shared/types/contracts';
 
 function App() {
@@ -13,6 +14,9 @@ function App() {
   const [coins, setCoins] = useState<number[]>([]);
   const [busy, setBusy] = useState(false);
   const [totalDonations, setTotalDonations] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMoreDonations, setHasMoreDonations] = useState(true);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   const handleOpenDonationModal = useCallback(async () => {
     if (busy) return;
@@ -35,12 +39,38 @@ function App() {
     setIsListModalOpen(true);
   }, []);
 
+  const loadMoreDonations = useCallback(async () => {
+    if (isLoadingMore || !hasMoreDonations) return;
+    
+    setIsLoadingMore(true);
+    try {
+      const nextPage = currentPage + 1;
+      const data = await fetchDonationsList(nextPage, DEFAULT_DONATIONS_PAGE_SIZE);
+      
+      if (data.newDonations && data.newDonations.length > 0) {
+        setDonations(prev => [...prev, ...data.newDonations]);
+        setCurrentPage(nextPage);
+        // Graph API не возвращает hasMore, используем старую логику
+        setHasMoreDonations(data.newDonations.length === DEFAULT_DONATIONS_PAGE_SIZE);
+      } else {
+        setHasMoreDonations(false);
+      }
+    } catch (error) {
+      console.error('Error loading more donations:', error);
+    } finally {
+      setIsLoadingMore(false);
+    }
+  }, [currentPage, hasMoreDonations, isLoadingMore]);
+
   useEffect(() => {
     fetchDonationsAmount().then((data) => {
       setTotalDonations(data.totalDonations);
     });
-    fetchDonationsList().then((data) => {
-      setDonations(data.newDonations);
+    fetchDonationsList(1, DEFAULT_DONATIONS_PAGE_SIZE).then((data) => {
+      setDonations(data.newDonations || []);
+      setCurrentPage(1);
+      // Graph API не возвращает hasMore, используем старую логику
+      setHasMoreDonations(data.newDonations && data.newDonations.length === DEFAULT_DONATIONS_PAGE_SIZE);
     });
     
     // Подписываемся на события о новых донатах
@@ -70,6 +100,9 @@ function App() {
         onClose={handleCloseListModal}
         donations={donations}
         totalDonations={totalDonations}
+        onLoadMore={loadMoreDonations}
+        hasMore={hasMoreDonations}
+        isLoadingMore={isLoadingMore}
       />
     </main>
   );

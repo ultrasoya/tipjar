@@ -1,0 +1,1 @@
+export const DEFAULT_DONATIONS_PAGE_SIZE = 10;

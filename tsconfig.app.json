@@ -18,6 +18,7 @@
     /* Path mapping */
     "baseUrl": ".",
     "paths": {
+      "@/*": ["src/*"],
       "@shared/*": ["src/shared/*"]
     },
 
