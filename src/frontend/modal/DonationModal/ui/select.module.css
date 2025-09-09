@@ -305,3 +305,52 @@
     transform: translateX(0);
   }
 }
+
+/* Мобильная верстка */
+@media (max-width: 768px) {
+  .selectTrigger {
+    padding: 0.6rem 0.8rem;
+    font-size: 1rem; /* Увеличиваем размер шрифта для лучшей читаемости на мобильных */
+  }
+  
+  .selectTrigger[data-size="default"] {
+    height: 2.5rem;
+  }
+  
+  .selectTrigger[data-size="sm"] {
+    height: 2.25rem;
+  }
+  
+  .selectItem {
+    padding: 0.5rem 0.6rem;
+    font-size: 1rem;
+  }
+  
+  .selectLabel {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .selectTrigger {
+    padding: 0.7rem 0.9rem;
+  }
+  
+  .selectTrigger[data-size="default"] {
+    height: 2.75rem;
+  }
+  
+  .selectTrigger[data-size="sm"] {
+    height: 2.5rem;
+  }
+  
+  .selectItem {
+    padding: 0.6rem 0.7rem;
+  }
+  
+  .selectLabel {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.7rem;
+  }
+}

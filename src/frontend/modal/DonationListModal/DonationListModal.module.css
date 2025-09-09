@@ -309,3 +309,109 @@
   border-top: 1px solid #f3f4f6;
   margin-top: 0.5rem;
 }
+
+/* Мобильная верстка */
+@media (max-width: 768px) {
+  .modalOverlay {
+    padding: 0.75rem;
+  }
+  
+  .modalContainer {
+    max-width: 100%;
+    max-height: 85vh;
+  }
+  
+  .header {
+    padding: 1.25rem;
+  }
+  
+  .headerText h2 {
+    font-size: 1.125rem;
+  }
+  
+  .headerText p {
+    font-size: 0.8rem;
+  }
+  
+  .totalSummary {
+    padding: 1.25rem;
+  }
+  
+  .totalAmount {
+    font-size: 1.25rem;
+  }
+  
+  .donationItem {
+    padding: 1.25rem;
+  }
+  
+  .donationMessage {
+    padding-left: 2.5rem;
+  }
+  
+  .donationTimestamp {
+    padding-left: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalOverlay {
+    padding: 0.5rem;
+  }
+  
+  .modalContainer {
+    max-height: 90vh;
+  }
+  
+  .header {
+    padding: 1rem;
+  }
+  
+  .headerText h2 {
+    font-size: 1rem;
+  }
+  
+  .headerText p {
+    font-size: 0.75rem;
+  }
+  
+  .totalSummary {
+    padding: 1rem;
+  }
+  
+  .totalAmount {
+    font-size: 1.125rem;
+  }
+  
+  .donationItem {
+    padding: 1rem;
+  }
+  
+  .donationContent {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .donationAmount {
+    text-align: left;
+    margin-left: 0;
+  }
+  
+  .donationMessage {
+    padding-left: 2.25rem;
+  }
+  
+  .donationTimestamp {
+    padding-left: 2.25rem;
+  }
+  
+  .donorAvatar {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+  
+  .donorAvatar svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}

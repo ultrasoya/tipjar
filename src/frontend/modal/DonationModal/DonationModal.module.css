@@ -192,3 +192,69 @@
   /* padding-left: 20px; */
   /* padding-right: 20px !important; */
 /* } */
+
+/* Мобильная верстка */
+@media (max-width: 768px) {
+  .modalContainer {
+    padding: 0.75rem;
+  }
+  
+  .modalContent {
+    max-width: 100%;
+    padding: 18px;
+  }
+  
+  .title {
+    font-size: 18px;
+  }
+  
+  .subtitle {
+    font-size: 0.875rem;
+  }
+  
+  .iconContainer {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  
+  .icon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalContainer {
+    padding: 0.5rem;
+  }
+  
+  .modalContent {
+    padding: 16px;
+  }
+  
+  .title {
+    font-size: 16px;
+  }
+  
+  .subtitle {
+    font-size: 0.8rem;
+  }
+  
+  .iconContainer {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  
+  .form {
+    gap: 0.875rem;
+  }
+  
+  .input {
+    font-size: 1rem;
+  }
+}

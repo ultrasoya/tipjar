@@ -18,3 +18,65 @@ main {
     align-items: center;
     padding: 40px 0;
 }
+
+.gift-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.mobile-button {
+    display: none;
+}
+
+/* Мобильная верстка */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 0;
+        padding: 50px 16px;
+        min-height: calc(100vh - 120px);
+    }
+    
+    .gift-container {
+        order: 1;
+        margin-bottom: 2rem;
+    }
+    
+    .donate-button-container {
+        order: 2;
+        flex: 1;
+        justify-content: center;
+        gap: 3.5rem;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    .donation-list-button-container {
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 16px 12px;
+        gap: 0;
+    }
+    
+    .gift-container {
+        margin-bottom: 1.5rem;
+    }
+    
+    .donate-button-container {
+        gap: 1.25rem;
+    }
+}

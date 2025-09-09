@@ -69,7 +69,7 @@
   --default-mono-font-feature-settings: var(--font-mono--font-feature-settings);
   --default-mono-font-variation-settings: var(--font-mono--font-variation-settings);
   --color-border: var(--border);
-      --font-size: 14px;
+    --font-size: 14px;
     --background: #fff;
     --foreground: oklch(.145 0 0);
     --card: #fff;
@@ -113,6 +113,13 @@ body {
   margin: 0;
   overflow: hidden;
   font-family: "Segoe UI", "Segoe UI Emoji", "Segoe UI Symbol", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+}
+
+/* Мобильные улучшения */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
 }
 
 /* Применяем Segoe UI ко всем элементам */

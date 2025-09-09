@@ -1,6 +1,7 @@
 import './App.css';
 import { useCallback, useEffect, useState } from 'react';
 import { DonateButton, Header, GiftBox } from './components';
+import DonationListButton from './components/DonationListButton';
 import { DonationModal } from './modal/DonationModal/DonationModal';
 import { DonationListModal } from './modal/DonationListModal/DonationListModal';
 import { eventsEmitter, fetchDonationsAmount, fetchDonationsList } from './utils';
@@ -88,8 +89,15 @@ function App() {
     <main>
       <Header donations={donations} onOpenListModal={handleOpenListModal} />
       <section className="container">
-        <GiftBox isOpen={isOpen} coins={coins} />
-        <DonateButton onClick={handleOpenDonationModal} disabled={busy} />
+        <div className="gift-container">
+          <GiftBox isOpen={isOpen} coins={coins} />
+        </div>
+        <div className="donate-button-container">
+          <DonateButton onClick={handleOpenDonationModal} disabled={busy} />
+        </div>
+        <div className="donation-list-button-container">
+          <DonationListButton onClick={handleOpenListModal} donations={donations} />
+        </div>
       </section>
       <DonationModal
         isOpen={isOpen}

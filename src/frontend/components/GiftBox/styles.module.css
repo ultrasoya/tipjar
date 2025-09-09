@@ -106,3 +106,64 @@
   border-radius: 50%;
   background: #fde68a;
 }
+
+/* Мобильная верстка */
+@media (max-width: 768px) {
+  .stage {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .coinBase {
+    width: 20px;
+    height: 20px;
+    top: -40px;
+  }
+  
+  .coinInset {
+    inset: 3px;
+  }
+  
+  .bowDot {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .verticalRibbon {
+    width: 20px;
+  }
+  
+  .horizontalRibbon {
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stage {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .coinBase {
+    width: 18px;
+    height: 18px;
+    top: -35px;
+  }
+  
+  .coinInset {
+    inset: 2.5px;
+  }
+  
+  .bowDot {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .verticalRibbon {
+    width: 18px;
+  }
+  
+  .horizontalRibbon {
+    height: 18px;
+  }
+}
