@@ -36,13 +36,17 @@ main {
     display: none;
 }
 
+.donation-list-button-container {
+    display: none;
+}
+
 /* Мобильная верстка */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
         justify-content: flex-start;
         gap: 0;
-        padding: 50px 16px;
+        padding: 50px 16px 120px 16px;
         min-height: calc(100vh - 120px);
     }
     
@@ -63,12 +67,27 @@ main {
     
     .donation-list-button-container {
         display: block;
+        order: 3;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 0 0 0 0;
+        background: linear-gradient(
+            to bottom right,
+            #eff6ff,
+            #f5f3ff
+        );
+        border-top: 1px solid rgba(229, 231, 235, 0.5);
     }
 }
 
 @media (max-width: 480px) {
     .container {
-        padding: 16px 12px;
+        padding: 120px 12px 100px 12px;
         gap: 0;
     }
     
@@ -78,5 +97,9 @@ main {
     
     .donate-button-container {
         gap: 1.25rem;
+    }
+    
+    .donation-list-button-container {
+        padding: 0 0 0 0;
     }
 }

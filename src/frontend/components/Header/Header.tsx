@@ -1,14 +1,12 @@
 import DonationListButton from '../DonationListButton';
 
-import type { Donation } from '@shared/types/contracts';
 import styles from './styles.module.css';
 
 interface HeaderProps {
-    donations: Donation[];
     onOpenListModal: () => void;
 }
 
-const Header = ({ donations, onOpenListModal }: HeaderProps) => {
+const Header = ({ onOpenListModal }: HeaderProps) => {
     return (
         <div className={styles.headerContainer}>
             <header className={styles.header}>
@@ -16,7 +14,7 @@ const Header = ({ donations, onOpenListModal }: HeaderProps) => {
                 <p className={styles.subtitle}>Make a donation and watch the magic happen</p>
             </header>
             <div className={styles.desktopButton}>
-                <DonationListButton onClick={onOpenListModal} donations={donations} />
+                <DonationListButton onClick={onOpenListModal}/>
             </div>
         </div>
     );

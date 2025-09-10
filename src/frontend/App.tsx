@@ -87,7 +87,7 @@ function App() {
 
   return (
     <main>
-      <Header donations={donations} onOpenListModal={handleOpenListModal} />
+      <Header onOpenListModal={handleOpenListModal} />
       <section className="container">
         <div className="gift-container">
           <GiftBox isOpen={isOpen} coins={coins} />
@@ -96,7 +96,7 @@ function App() {
           <DonateButton onClick={handleOpenDonationModal} disabled={busy} />
         </div>
         <div className="donation-list-button-container">
-          <DonationListButton onClick={handleOpenListModal} donations={donations} />
+          <DonationListButton onClick={handleOpenListModal} />
         </div>
       </section>
       <DonationModal

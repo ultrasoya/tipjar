@@ -67,24 +67,3 @@
         display: none;
     }
 }
-
-@media (max-width: 480px) {
-    .headerContainer {
-        padding: 8px 12px;
-    }
-    
-    .header {
-        padding: 8px;
-    }
-    
-    .title {
-        font-size: 28px;
-        line-height: 36px;
-    }
-    
-    .subtitle {
-        font-size: 14px;
-        line-height: 20px;
-        margin-top: 6px;
-    }
-}
