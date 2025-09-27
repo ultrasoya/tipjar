@@ -1,16 +1,16 @@
 # Backend Service
 
-Сервис бэкенда для приложения Tipjar, предоставляющий API для работы с донатами и блокчейном.
+Backend service for the Tipjar application, providing API for working with donations and blockchain.
 
-## Установка
+## Installation
 
 ```bash
 npm install
 ```
 
-## Настройка переменных окружения
+## Environment Variables Setup
 
-Создайте файл `.env` в корне директории бэкенда со следующими переменными:
+Create a `.env` file in the backend root directory with the following variables:
 
 ```env
 # Subgraph configuration
@@ -29,47 +29,50 @@ RPC_URL=https://sepolia.infura.io/v3/your-project-id
 PRIVATE_KEY=your-private-key-here
 ```
 
-### Описание переменных:
+### Variable Description:
 
-- `SUBGRAPH_URL` - URL вашего subgraph для получения данных о донатах
-- `SUBGRAPH_API_KEY` - API ключ для доступа к subgraph
-- `PORT` - порт, на котором будет запущен сервер (по умолчанию 3000)
-- `ALCHEMY_API_KEY` - API ключ Alchemy для взаимодействия с блокчейном
-- `DONATE_CONTRACT_ADDRESS` - адрес развернутого смарт-контракта
-- `RPC_URL` - альтернативный URL RPC провайдера (если не используете Alchemy)
-- `PRIVATE_KEY` - приватный ключ для подписи транзакций
+- `SUBGRAPH_URL` - URL of your subgraph for fetching donation data
+- `SUBGRAPH_API_KEY` - API key for accessing the subgraph
+- `PORT` - port on which the server will run (default 3000)
+- `ALCHEMY_API_KEY` - Alchemy API key for blockchain interaction
+- `DONATE_CONTRACT_ADDRESS` - address of the deployed smart contract
+- `RPC_URL` - alternative RPC provider URL (if not using Alchemy)
+- `PRIVATE_KEY` - private key for signing transactions
 
-## Запуск
+## Running
 
-### Проверка конфигурации
+### Configuration Check
+
 ```bash
 npm run check-env
 ```
 
-### Режим разработки
+### Development Mode
+
 ```bash
 npm run dev
 ```
 
-### Продакшн режим
+### Production Mode
+
 ```bash
 npm run start
 ```
 
 ## API Endpoints
 
-- `GET /health` - проверка состояния сервера
-- `GET /donations/list` - список донатов
-- `GET /donations/amount` - общая сумма донатов
-- `GET /events` - события блокчейна
+- `GET /health` - server health check
+- `GET /donations/list` - donations list
+- `GET /donations/amount` - total donations amount
+- `GET /events` - blockchain events
 
-## Структура проекта
+## Project Structure
 
 ```
 src/
-├── index.ts              # Основной файл сервера
-├── routes/               # API маршруты
-├── services/             # Бизнес-логика
-├── listeners/            # Слушатели событий
-└── types/                # TypeScript типы
+├── index.ts              # Main server file
+├── routes/               # API routes
+├── services/             # Business logic
+├── listeners/            # Event listeners
+└── types/                # TypeScript types
 ```

@@ -1,9 +1,7 @@
 import dotenv from "dotenv";
 
-// Загружаем переменные окружения
 dotenv.config();
 
-// Список обязательных переменных
 const requiredEnvVars = [
     "SUBGRAPH_URL",
     "SUBGRAPH_API_KEY",
@@ -11,7 +9,6 @@ const requiredEnvVars = [
     "DONATE_CONTRACT_ADDRESS"
 ];
 
-// Проверяем наличие всех обязательных переменных
 const missingVars: string[] = [];
 
 for (const envVar of requiredEnvVars) {
@@ -31,7 +28,6 @@ if (missingVars.length > 0) {
 
 console.log("✅ Все обязательные переменные окружения настроены корректно!");
 
-// Выводим информацию о конфигурации
 console.log("\n📋 Текущая конфигурация:");
 console.log(`   Порт сервера: ${process.env["PORT"] || 3000}`);
 console.log(`   Subgraph URL: ${process.env["SUBGRAPH_URL"]}`);

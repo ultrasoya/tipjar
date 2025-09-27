@@ -1,4 +1,3 @@
-// Типы для DonateContract
 export type Donation = {
   donor: string;
   name: string;
@@ -16,13 +15,11 @@ export type NewDonationEvent = {
   history?: Donation[];
 };
 
-// Типы для ошибок контракта
 export type ContractError = 
   | "InsuffientBalance"
   | "NotOwner" 
   | "WithdrawCallFailed";
 
-// Типы для событий
 export type SSEEvent = {
   type: 'connected' | 'donation';
   message?: string;

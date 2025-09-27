@@ -1,12 +1,13 @@
 import './App.css';
-import { useCallback, useEffect, useState } from 'react';
-import { DonateButton, Header, GiftBox } from './components';
+import { useCallback, useEffect, useState, lazy, useMemo } from 'react';
+import { DonateButton, Header, GiftBox, ModalWrapper } from './components';
 import DonationListButton from './components/DonationListButton';
-import { DonationModal } from './modal/DonationModal/DonationModal';
-import { DonationListModal } from './modal/DonationListModal/DonationListModal';
 import { eventsEmitter, fetchDonationsAmount, fetchDonationsList } from './utils';
 import { DEFAULT_DONATIONS_PAGE_SIZE } from './constants';
 import type { Donation } from '@shared/types/contracts';
+
+const DonationModal = lazy(() => import('./modal/DonationModal/DonationModal').then(module => ({ default: module.DonationModal })));
+const DonationListModal = lazy(() => import('./modal/DonationListModal/DonationListModal').then(module => ({ default: module.DonationListModal })));
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +19,9 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMoreDonations, setHasMoreDonations] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+
+  const memoizedDonations = useMemo(() => donations, [donations]);
+  const memoizedTotalDonations = useMemo(() => totalDonations, [totalDonations]);
 
   const handleOpenDonationModal = useCallback(async () => {
     if (busy) return;
@@ -51,7 +55,6 @@ function App() {
       if (data.newDonations && data.newDonations.length > 0) {
         setDonations(prev => [...prev, ...data.newDonations]);
         setCurrentPage(nextPage);
-        // Graph API не возвращает hasMore, используем старую логику
         setHasMoreDonations(data.newDonations.length === DEFAULT_DONATIONS_PAGE_SIZE);
       } else {
         setHasMoreDonations(false);
@@ -64,21 +67,33 @@ function App() {
   }, [currentPage, hasMoreDonations, isLoadingMore]);
 
   useEffect(() => {
-    fetchDonationsAmount().then((data) => {
-      setTotalDonations(data.totalDonations);
-    });
-    fetchDonationsList(1, DEFAULT_DONATIONS_PAGE_SIZE).then((data) => {
-      setDonations(data.newDonations || []);
-      setCurrentPage(1);
-      // Graph API не возвращает hasMore, используем старую логику
-      setHasMoreDonations(data.newDonations && data.newDonations.length === DEFAULT_DONATIONS_PAGE_SIZE);
-    });
+    const loadInitialData = async () => {
+      try {
+        const [amountData, listData] = await Promise.allSettled([
+          fetchDonationsAmount(),
+          fetchDonationsList(1, DEFAULT_DONATIONS_PAGE_SIZE)
+        ]);
+
+        if (amountData.status === 'fulfilled') {
+          setTotalDonations(amountData.value.totalDonations);
+        }
+
+        if (listData.status === 'fulfilled') {
+          setDonations(listData.value.newDonations || []);
+          setCurrentPage(1);
+          setHasMoreDonations(listData.value.newDonations && listData.value.newDonations.length === DEFAULT_DONATIONS_PAGE_SIZE);
+        }
+      } catch (error) {
+        console.error('Error loading initial data:', error);
+      }
+    };
+
+    const timeoutId = setTimeout(loadInitialData, 0);
     
-    // Подписываемся на события о новых донатах
     const cleanupEvents = eventsEmitter();
     
-    // Cleanup функция для закрытия EventSource при размонтировании
     return () => {
+      clearTimeout(timeoutId);
       if (cleanupEvents) {
         cleanupEvents();
       }
@@ -99,19 +114,32 @@ function App() {
           <DonationListButton onClick={handleOpenListModal} />
         </div>
       </section>
-      <DonationModal
+      <ModalWrapper
         isOpen={isOpen}
         onClose={handleCloseDonationModal}
-      />
-      <DonationListModal
+        loadingText="Loading donation form..."
+      >
+        <DonationModal
+          isOpen={isOpen}
+          onClose={handleCloseDonationModal}
+        />
+      </ModalWrapper>
+      
+      <ModalWrapper
         isOpen={isListModalOpen}
         onClose={handleCloseListModal}
-        donations={donations}
-        totalDonations={totalDonations}
-        onLoadMore={loadMoreDonations}
-        hasMore={hasMoreDonations}
-        isLoadingMore={isLoadingMore}
-      />
+        loadingText="Loading donations list..."
+      >
+        <DonationListModal
+          isOpen={isListModalOpen}
+          onClose={handleCloseListModal}
+          donations={memoizedDonations}
+          totalDonations={memoizedTotalDonations}
+          onLoadMore={loadMoreDonations}
+          hasMore={hasMoreDonations}
+          isLoadingMore={isLoadingMore}
+        />
+      </ModalWrapper>
     </main>
   );
 }

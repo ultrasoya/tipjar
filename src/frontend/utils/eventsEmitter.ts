@@ -8,8 +8,6 @@ const eventsEmitter = () => {
             const data: NewDonationEvent = JSON.parse(event.data);
             console.log('🔥 New donation received:', data);
             
-            // Здесь можно добавить логику для показа уведомлений
-            // Например, показать toast или обновить состояние
         } catch (error) {
             console.error('Error parsing event data:', error);
         }
@@ -20,7 +18,6 @@ const eventsEmitter = () => {
         eventSource.close();
     };
     
-    // Возвращаем функцию для закрытия соединения
     return () => {
         eventSource.close();
     };

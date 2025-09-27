@@ -30,11 +30,10 @@
   background-color: var(--input) / 0.3;
 }
 
-/* Мобильная верстка */
 @media (max-width: 768px) {
   .input {
     padding: 0.6rem 0.8rem;
-    font-size: 1rem; /* Увеличиваем размер шрифта для лучшей читаемости на мобильных */
+    font-size: 1rem;
   }
 }
 

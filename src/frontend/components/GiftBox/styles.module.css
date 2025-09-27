@@ -107,7 +107,6 @@
   background: #fde68a;
 }
 
-/* Мобильная верстка */
 @media (max-width: 768px) {
   .stage {
     width: 160px;

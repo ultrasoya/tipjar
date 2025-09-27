@@ -10,8 +10,6 @@ import { Address, BigInt } from "@graphprotocol/graph-ts";
 import { handleNewDonation } from "../src/donate-contract";
 import { createNewDonationEvent } from "./donate-contract-utils";
 
-// Tests structure (matchstick-as >=0.5.0)
-// https://thegraph.com/docs/en/subgraphs/developing/creating/unit-testing-framework/#tests-structure
 
 describe("Describe entity assertions", () => {
   beforeAll(() => {
@@ -32,13 +30,10 @@ describe("Describe entity assertions", () => {
     clearStore();
   });
 
-  // For more test scenarios, see:
-  // https://thegraph.com/docs/en/subgraphs/developing/creating/unit-testing-framework/#write-a-unit-test
 
   test("NewDonation created and stored", () => {
     assert.entityCount("NewDonation", 1);
 
-    // 0xa16081f360e3847006db660bae1c6d1b2e17ec2a is the default address used in newMockEvent() function
     assert.fieldEquals(
       "NewDonation",
       "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
@@ -64,7 +59,5 @@ describe("Describe entity assertions", () => {
       "234"
     );
 
-    // More assert options:
-    // https://thegraph.com/docs/en/subgraphs/developing/creating/unit-testing-framework/#asserts
   });
 });

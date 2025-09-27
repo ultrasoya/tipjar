@@ -1,8 +1,8 @@
-# Пошаговая настройка бэкенда
+# Backend Setup Guide
 
-## 1. Создание файла .env
+## 1. Creating .env File
 
-Создайте файл `.env` в корне директории бэкенда (`src/backend/`) со следующим содержимым:
+Create a `.env` file in the backend root directory (`src/backend/`) with the following content:
 
 ```env
 # Subgraph configuration
@@ -21,45 +21,51 @@ RPC_URL=https://sepolia.infura.io/v3/your-project-id
 PRIVATE_KEY=your-private-key-here
 ```
 
-## 2. Получение необходимых ключей
+## 2. Getting Required Keys
 
 ### Subgraph API
-1. Перейдите на [The Graph Studio](https://studio.thegraph.com/)
-2. Создайте новый subgraph или используйте существующий
-3. Скопируйте URL и API ключ
+
+1. Go to [The Graph Studio](https://studio.thegraph.com/)
+2. Create a new subgraph or use existing one
+3. Copy the URL and API key
 
 ### Alchemy API
-1. Перейдите на [Alchemy](https://www.alchemy.com/)
-2. Создайте новый проект
-3. Скопируйте API ключ
 
-### Контракт
-1. Разверните ваш смарт-контракт в сети Sepolia
-2. Скопируйте адрес контракта
+1. Go to [Alchemy](https://www.alchemy.com/)
+2. Create a new project
+3. Copy the API key
 
-## 3. Проверка конфигурации
+### Contract
+
+1. Deploy your smart contract to Sepolia network
+2. Copy the contract address
+
+## 3. Configuration Check
 
 ```bash
 npm run check-env
 ```
 
-## 4. Запуск
+## 4. Running
 
 ```bash
 npm run dev
 ```
 
-## Устранение неполадок
+## Troubleshooting
 
-### Ошибка "environment variable is not defined"
-- Убедитесь, что файл `.env` создан в правильной директории
-- Проверьте, что все переменные заполнены
-- Перезапустите сервер после изменения `.env`
+### Error "environment variable is not defined"
 
-### Ошибка подключения к блокчейну
-- Проверьте правильность `ALCHEMY_API_KEY`
-- Убедитесь, что используете правильную сеть (Sepolia)
+- Make sure `.env` file is created in the correct directory
+- Check that all variables are filled
+- Restart the server after changing `.env`
 
-### Ошибка подключения к subgraph
-- Проверьте правильность `SUBGRAPH_URL` и `SUBGRAPH_API_KEY`
-- Убедитесь, что subgraph синхронизирован
+### Blockchain connection error
+
+- Check the correctness of `ALCHEMY_API_KEY`
+- Make sure you're using the correct network (Sepolia)
+
+### Subgraph connection error
+
+- Check the correctness of `SUBGRAPH_URL` and `SUBGRAPH_API_KEY`
+- Make sure the subgraph is synchronized

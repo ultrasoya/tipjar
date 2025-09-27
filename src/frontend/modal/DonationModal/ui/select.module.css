@@ -1,10 +1,8 @@
-/* Select Trigger */
 .selectTrigger {
   border: 1px solid var(--input);
   background-color: var(--input-background);
   color: var(--foreground);
   display: flex;
-  /* width: 100%; */
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
@@ -66,7 +64,6 @@
   opacity: 0.5;
 }
 
-/* Размеры */
 .selectTrigger[data-size="default"] {
   height: 2.25rem;
 }
@@ -75,7 +72,6 @@
   height: 2rem;
 }
 
-/* Select Value */
 .selectValue {
   line-height: 1;
   flex: 1;
@@ -84,7 +80,6 @@
   gap: 0.5rem;
 }
 
-/* Select Content */
 .selectContent {
   background-color: var(--popover);
   color: var(--popover-foreground);
@@ -139,7 +134,6 @@
   transform: translateY(-0.25rem);
 }
 
-/* Select Viewport */
 .selectViewport {
   padding: 0.25rem;
 }
@@ -157,12 +151,9 @@
 
 .selectViewportPopper {
   height: var(--radix-select-trigger-height);
-  /* width: 100%; */
-  /* min-width: var(--radix-select-trigger-width); */
   scroll-margin: 0.25rem;
 }
 
-/* Select Label */
 .selectLabel {
   font-family: "Segoe UI", "Segoe UI Emoji", "Segoe UI Symbol", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
   color: var(--muted-foreground);
@@ -170,7 +161,6 @@
   font-size: 0.75rem;
 }
 
-/* Select Item */
 .selectItem {
   position: relative;
   display: flex;
@@ -192,7 +182,6 @@
 
 .selectItem[data-disabled] {
   pointer-events: none;
-  /* opacity: 0.5; */
 }
 
 .selectItem svg {
@@ -207,7 +196,6 @@
 }
 
 .selectItemIndicator {
-  /* position: absolute; */
   right: 0.65rem;
   display: flex;
   width: 0.875rem;
@@ -220,13 +208,7 @@
   padding: 5px !important;
 }
 
-/* Стили для текста элемента */
-/* .selectItem [data-radix-select-item-text] {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-} */
 
-/* Select Separator */
 .selectSeparator {
   background-color: var(--border);
   pointer-events: none;
@@ -234,7 +216,6 @@
   height: 1px;
 }
 
-/* Select Scroll Buttons */
 .selectScrollButton {
   display: flex;
   cursor: default;
@@ -243,7 +224,6 @@
   padding: 0.25rem;
 }
 
-/* Анимации */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -306,11 +286,10 @@
   }
 }
 
-/* Мобильная верстка */
 @media (max-width: 768px) {
   .selectTrigger {
     padding: 0.6rem 0.8rem;
-    font-size: 1rem; /* Увеличиваем размер шрифта для лучшей читаемости на мобильных */
+    font-size: 1rem;
   }
   
   .selectTrigger[data-size="default"] {

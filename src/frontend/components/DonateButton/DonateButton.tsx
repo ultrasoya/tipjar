@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart } from 'lucide-react';
 import styles from './styles.module.css';
@@ -51,4 +52,4 @@ function DonateButton({ onClick, disabled = false }: DonateButtonProps) {
   );
 }
 
-export default DonateButton;
+export default React.memo(DonateButton);

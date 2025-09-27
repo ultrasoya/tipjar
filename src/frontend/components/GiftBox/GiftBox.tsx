@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./styles.module.css";
 
@@ -69,4 +69,4 @@ const GiftBox = ({ isOpen, coins }: GiftBoxProps) => {
   );
 };
 
-export default GiftBox;
+export default React.memo(GiftBox);

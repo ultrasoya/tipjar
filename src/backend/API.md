@@ -3,48 +3,54 @@
 ## Endpoints
 
 ### 1. Health Check
+
 **GET** `/health`
 
-Проверка состояния сервера.
+Server health check.
 
 **Response:**
+
 ```json
 "OK"
 ```
 
-**Использование:** Мониторинг, проверка доступности сервера.
+**Usage:** Monitoring, checking server availability.
 
 ---
 
 ### 2. Donations List
+
 **GET** `/donationsList`
 
-Получение списка последних донатов из subgraph.
+Get list of recent donations from subgraph.
 
 **Response:**
+
 ```json
 {
   "donations": [
     {
       "id": "donation_id",
       "donor": "0x...",
-      "name": "Имя донатера",
-      "message": "Сообщение"
+      "name": "Donor Name",
+      "message": "Message"
     }
   ]
 }
 ```
 
-**Использование:** Отображение истории донатов на фронтенде.
+**Usage:** Display donation history on frontend.
 
 ---
 
 ### 3. Donations Amount
+
 **GET** `/donationsAmount`
 
-Получение общей суммы всех донатов из смарт-контракта.
+Get total amount of all donations from smart contract.
 
 **Response:**
+
 ```json
 {
   "message": "Contract connected successfully",
@@ -52,16 +58,18 @@
 }
 ```
 
-**Использование:** Отображение общей суммы собранных средств.
+**Usage:** Display total amount of collected funds.
 
 ---
 
 ### 4. Events (Server-Sent Events)
+
 **GET** `/events`
 
-Подписка на уведомления о новых донатах в реальном времени.
+Subscribe to real-time notifications about new donations.
 
 **Headers:**
+
 ```
 Content-Type: text/event-stream
 Cache-Control: no-cache
@@ -69,56 +77,59 @@ Connection: keep-alive
 ```
 
 **Response:**
+
 ```
-data: {"donor":"0x...","name":"Имя","message":"Сообщение","amount":"0.1","history":[...]}
+data: {"donor":"0x...","name":"Name","message":"Message","amount":"0.1","history":[...]}
 
-data: {"donor":"0x...","name":"Имя","message":"Сообщение","amount":"0.05","history":[...]}
+data: {"donor":"0x...","name":"Name","message":"Message","amount":"0.05","history":[...]}
 ```
 
-**Использование:** Обновление UI в реальном времени при новых донатах.
+**Usage:** Real-time UI updates when new donations arrive.
 
-## Как это работает
+## How it Works
 
-1. **Фронтенд** подключается к `/events` для получения уведомлений
-2. **Слушатель** отслеживает события `NewDonation` в блокчейне
-3. При новом донате:
-   - Получает данные из subgraph
-   - Отправляет уведомление через SSE
-   - Обновляет общую сумму
+1. **Frontend** connects to `/events` to receive notifications
+2. **Listener** monitors `NewDonation` events on blockchain
+3. When new donation occurs:
+   - Fetches data from subgraph
+   - Sends notification via SSE
+   - Updates total amount
 
-## Примеры использования
+## Usage Examples
 
-### JavaScript (фронтенд)
+### JavaScript (Frontend)
+
 ```javascript
-// Подписка на события
-const eventSource = new EventSource('/events');
+// Subscribe to events
+const eventSource = new EventSource("/events");
 eventSource.onmessage = (event) => {
-    const donation = JSON.parse(event.data);
-    console.log('Новый донат:', donation);
+  const donation = JSON.parse(event.data);
+  console.log("New donation:", donation);
 };
 
-// Получение списка донатов
-fetch('/donationsList')
-    .then(response => response.json())
-    .then(data => console.log('Донаты:', data.donations));
+// Get donations list
+fetch("/donationsList")
+  .then((response) => response.json())
+  .then((data) => console.log("Donations:", data.donations));
 
-// Получение общей суммы
-fetch('/donationsAmount')
-    .then(response => response.json())
-    .then(data => console.log('Общая сумма:', data.totalDonations));
+// Get total amount
+fetch("/donationsAmount")
+  .then((response) => response.json())
+  .then((data) => console.log("Total amount:", data.totalDonations));
 ```
 
 ### cURL
+
 ```bash
-# Проверка здоровья
+# Health check
 curl http://localhost:30000/health
 
-# Список донатов
+# Donations list
 curl http://localhost:30000/donationsList
 
-# Общая сумма
+# Total amount
 curl http://localhost:30000/donationsAmount
 
-# Подписка на события
+# Subscribe to events
 curl -N http://localhost:30000/events
 ```

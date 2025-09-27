@@ -5,9 +5,19 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Crypto Gift Box</title>
+    
+    <!-- Предзагрузка критических ресурсов -->
+    <link rel="preconnect" href="http://localhost:8080" />
+    <link rel="dns-prefetch" href="http://localhost:8080" />
+    
+    <!-- Предзагрузка критических CSS -->
+    <link rel="preload" href="/src/frontend/index.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="preload" href="/src/frontend/App.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="/src/frontend/index.css" /></noscript>
+    <noscript><link rel="stylesheet" href="/src/frontend/App.css" /></noscript>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/frontend/main.tsx"></script>
+    <script type="module" src="/src/frontend/main.tsx" defer></script>
   </body>
 </html>

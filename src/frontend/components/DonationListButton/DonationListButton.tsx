@@ -1,6 +1,6 @@
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { List } from "lucide-react";
-import { useEffect, useState } from "react";
 import styles from "./DonationListButton.module.css";
 
 interface DonationListButtonProps {
@@ -60,4 +60,4 @@ function DonationListButton({ onClick }: DonationListButtonProps) {
   );
 };
 
-export default DonationListButton;
+export default React.memo(DonationListButton);

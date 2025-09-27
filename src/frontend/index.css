@@ -112,17 +112,16 @@
 body {
   margin: 0;
   overflow: hidden;
-  font-family: "Segoe UI", "Segoe UI Emoji", "Segoe UI Symbol", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+  font-family: var(--font-sans);
+  font-display: swap;
 }
 
-/* Мобильные улучшения */
 @media (max-width: 768px) {
   body {
     overflow-x: hidden;
   }
 }
 
-/* Применяем Segoe UI ко всем элементам */
 * {
   font-family: inherit;
 }

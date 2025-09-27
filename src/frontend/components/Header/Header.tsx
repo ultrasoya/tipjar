@@ -1,5 +1,5 @@
+import React from 'react';
 import DonationListButton from '../DonationListButton';
-
 import styles from './styles.module.css';
 
 interface HeaderProps {
@@ -20,4 +20,4 @@ const Header = ({ onOpenListModal }: HeaderProps) => {
     );
 };
 
-export default Header;
+export default React.memo(Header);

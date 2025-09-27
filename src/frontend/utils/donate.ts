@@ -1,7 +1,6 @@
 import { ethers } from "ethers";
 import DonateContractAbi from "../../shared/contracts/DonateContractAbi.json";
 
-// Расширяем тип Window для поддержки ethereum
 declare global {
     interface Window {
         ethereum?: {
@@ -13,7 +12,6 @@ declare global {
 }
 
 async function donate(amount: string, name: string, message: string) {
-    // Проверяем наличие MetaMask
     if (!window.ethereum) {
         throw new Error("MetaMask не установлен");
     }
@@ -21,7 +19,6 @@ async function donate(amount: string, name: string, message: string) {
     const provider = new ethers.BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();
 
-    // Используем адрес контракта из деплоя
     const contractAddress = "0x4663ba9079D5577718105635d614C8F965C8f734";
 
     if (!contractAddress) {
@@ -30,7 +27,6 @@ async function donate(amount: string, name: string, message: string) {
 
     const contract = new ethers.Contract(contractAddress, DonateContractAbi, signer);
 
-    // Конвертируем amount в wei
     const amountInWei = ethers.parseEther(amount);
 
     const tx = await contract.donate(name, message, { value: amountInWei });

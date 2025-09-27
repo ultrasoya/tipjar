@@ -12,7 +12,6 @@ router.get("/events", (req: Request, res: Response) => {
     res.setHeader("Access-Control-Allow-Headers", "Cache-Control");
     res.flushHeaders();
 
-    // Отправляем начальное сообщение для проверки соединения
     res.write(`data: ${JSON.stringify({ type: 'connected', message: 'SSE connection established' })}\n\n`);
 
     clients.push(res);
@@ -37,7 +36,6 @@ router.get("/events", (req: Request, res: Response) => {
 export const broadcastEvent = (data: unknown) => {
     const payload = `data: ${JSON.stringify(data)}\n\n`;
     
-    // Фильтруем неактивных клиентов
     const activeClients = clients.filter(client => {
         try {
             return !client.destroyed && !client.finished;
@@ -51,7 +49,6 @@ export const broadcastEvent = (data: unknown) => {
             client.write(payload);
         } catch (error) {
             console.error('Error sending event to client:', error);
-            // Удаляем неактивного клиента
             clients.splice(index, 1);
         }
     });

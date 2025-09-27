@@ -39,7 +39,6 @@ export const fetchSubgraphData = async (page: number = 1, limit: number = DEFAUL
 
     const data = await graphqlRequest<SubgraphResponse>(subgraphUrl, query, headers);
 
-    // Конвертируем amount из gwei в ETH для каждого доната
     const processedData = {
         ...data,
         newDonations: data.newDonations.map((donation: SubgraphDonation) => ({
