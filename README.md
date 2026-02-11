@@ -1,3 +1,5 @@
+<img width="2498" height="1349" alt="image" src="https://github.com/user-attachments/assets/e6dd3f94-fe8b-4104-bc1c-267ce68c7479" />
+
 # Tipjar
 
 A decentralized Web3 donation platform for receiving cryptocurrency donations on Ethereum
@@ -107,3 +109,4 @@ src/
 ## License
 
 MIT
+
